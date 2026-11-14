@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Radio, NotebookPen } from "lucide-react";
 
 async function callMcp(name, args) {
   const res = await fetch("/api/mcp", {
@@ -44,7 +45,7 @@ export default function Signals({ initialSignals }) {
       } catch (e) {
         const msg = String(e.message ?? e);
         if (!/too many requests|retry_after/i.test(msg)) setError(msg);
-        else setStatus("⏳ rate-limited — the note will retry on the next poll");
+        else setStatus("Rate-limited — the note will retry on the next poll");
       }
     },
     [loadNotes]
@@ -73,7 +74,7 @@ export default function Signals({ initialSignals }) {
       if (/too many requests|retry_after/i.test(msg)) {
         // Game rule: 1 call/min/token. Back off and retry automatically.
         setError("");
-        setStatus("⏳ rate-limited by the game (1 call/min) — auto-retrying in 60s");
+        setStatus("Rate-limited by the game (1 call/min) — auto-retrying in 60s");
         clearTimeout(rateTimer.current);
         rateTimer.current = setTimeout(() => refreshRef.current?.(), 61_000);
       } else {
@@ -110,7 +111,7 @@ export default function Signals({ initialSignals }) {
       <span className="status-pill">{status}</span>
       {error && <pre className="err-box">⚠ {error}</pre>}
 
-      <h3 style={{ color: "var(--accent2)", fontSize: 12, letterSpacing: 1, marginTop: 12 }}>📡 SIGNALS ({signals.length})</h3>
+      <h3><Radio size={15} strokeWidth={1.5} /> Signals ({signals.length})</h3>
       {signals.length === 0 && (
         <p className="cite">none yet — this panel updates itself when the account moves</p>
       )}
@@ -129,12 +130,10 @@ export default function Signals({ initialSignals }) {
         </div>
       ))}
 
-      <h3 style={{ color: "var(--accent2)", fontSize: 12, letterSpacing: 1, marginTop: 12 }}>
-        📝 NOTES THE CRM WROTE BACK ({(notes ?? []).length})
-      </h3>
+      <h3><NotebookPen size={15} strokeWidth={1.5} /> Notes the CRM wrote back ({(notes ?? []).length})</h3>
       {(notes ?? []).length === 0 && <p className="cite">no notes yet</p>}
       {(notes ?? []).map((n, i) => (
-        <div key={i} className="signal-item" style={{ borderLeft: "3px solid var(--accent2)", margin: "8px 0" }}>
+        <div key={i} className="signal-item" style={{ borderLeft: "3px solid var(--line2)", margin: "8px 0" }}>
           <span className="tag">[{n?.kind ?? "note"}]</span> <span className="cite">{n?.account ? `${n.account} · ` : ""}{n?.title ? `${n.title} — ` : ""}{n?.text ?? JSON.stringify(n)}</span>
         </div>
       ))}

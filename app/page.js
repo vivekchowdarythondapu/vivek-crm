@@ -2,19 +2,20 @@ import { getAnswers } from "../lib/answers";
 import Signals from "./components/Signals.jsx";
 import CountUp from "./components/CountUp.jsx";
 import Reveal from "./components/Reveal.jsx";
+import { CircleDollarSign, Compass, Zap, PenLine, TriangleAlert, Search } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
 // Scrolling news strip under the header — every line is a cited game fact.
 const TICKER = [
-  "✅ $105,000 closed & backed [a_priority_support, a_training]",
-  "💰 Morning-review book $854,509 [morning-review]",
-  "⚠️ Tender spec locks day 20 (draft_tender_spec §5.3)",
-  "🔴 Rhys Calder — only ally — leaving in January",
-  "📅 Karen's public event — 5 December, written reply still owed",
-  "🚨 Westmere bid window passed — $250k waits a year",
-  "🧾 FB-10412 data-flow docs — open & unassigned since 14/08/2026",
-  "📡 CRM polls get_signals every 70s and writes notes back",
+  "$105,000 closed & backed [a_priority_support, a_training]",
+  "Morning-review book $854,509 [morning-review]",
+  "Tender spec locks day 20 (draft_tender_spec §5.3)",
+  "Rhys Calder — only ally — leaving in January",
+  "Karen's public event — 5 December, written reply still owed",
+  "Westmere bid window passed — $250k waits a year",
+  "FB-10412 data-flow docs — open & unassigned since 14/08/2026",
+  "CRM polls get_signals every 70s and writes notes back",
 ];
 
 const STANCE_COLOR = {
@@ -114,7 +115,7 @@ function Account({ acc, signals }) {
       </div>
 
       {/* Q1 — WHAT IS THE BOOK WORTH */}
-      <h3 style={{ color: "var(--good)", fontSize: 12, letterSpacing: 1, marginTop: 14 }}>💰 1 · WHAT IS THE BOOK WORTH?</h3>
+      <h3><CircleDollarSign size={15} strokeWidth={1.5} /> 1 · What is the book worth?</h3>
       <p className="cite">
         Closed &amp; backed: <b style={{ color: "var(--text)" }}>${backedTotal.toLocaleString()}</b> — each deal backed by
         its own record below. Pipeline is listed deal-by-deal; no single champion total is claimed beyond the game's own
@@ -139,7 +140,7 @@ function Account({ acc, signals }) {
         <tbody>
           {won.map((o) => (
             <tr key={o.id}>
-              <td style={{ padding: "11px 8px 11px 0", color: "var(--good)", whiteSpace: "nowrap" }}>WON ${o.value?.toLocaleString()}</td>
+              <td style={{ padding: "11px 8px 11px 0", color: "var(--good)", whiteSpace: "nowrap" }}>Won ${o.value?.toLocaleString()}</td>
               <td>
                 <b>{o.title}</b> <Cite id={o.id} />
                 <div className="cite">→ {o.pitchTo}</div>
@@ -152,7 +153,7 @@ function Account({ acc, signals }) {
               <tr key={o.id}>
                 <td style={{ padding: "11px 8px 11px 0", whiteSpace: "nowrap" }}>
                   <span className={dl?.passed ? "tag bad" : dl?.soon ? "tag" : "tag good"}>
-                    {dl?.passed ? "WINDOW PASSED" : dl?.soon ? "DEADLINE SOON" : "OPEN"}
+                    {dl?.passed ? "Window passed" : dl?.soon ? "Deadline soon" : "Open"}
                   </span>{" "}
                   up to ${o.worth_up_to?.toLocaleString()}
                 </td>
@@ -170,7 +171,7 @@ function Account({ acc, signals }) {
           {open.map((o) => (
             <tr key={o.id}>
               <td style={{ padding: "11px 8px 11px 0" }}>
-                <span className="tag">OFFER OPEN</span> ${o.value?.toLocaleString()}
+                <span className="tag">Offer open</span> ${o.value?.toLocaleString()}
               </td>
               <td>
                 <b>{o.title}</b> <Cite id={o.id} />
@@ -180,7 +181,7 @@ function Account({ acc, signals }) {
           ))}
           {declined.map((o) => (
             <tr key={o.id}>
-              <td style={{ padding: "11px 8px 11px 0", color: "var(--bad)", whiteSpace: "nowrap" }}>DECLINED ${o.value?.toLocaleString()}</td>
+              <td style={{ padding: "11px 8px 11px 0", color: "var(--bad)", whiteSpace: "nowrap" }}>Declined ${o.value?.toLocaleString()}</td>
               <td>
                 <b>{o.title}</b> <Cite id={o.id} />
                 <div className="cite">→ {o.pitchTo} — declined too early: offered before the underlying case was built</div>
@@ -190,7 +191,7 @@ function Account({ acc, signals }) {
           {(acc.unknownDeals ?? []).map((d, i) => (
             <tr key={`ud-${i}`}>
               <td style={{ padding: "11px 8px 11px 0" }}>
-                <span className="tag bad">NEVER HEARD OF</span>
+                <span className="tag bad">Never heard of</span>
               </td>
               <td>
                 <b>{d.title}</b> <Cite id="morning-review" />
@@ -202,7 +203,7 @@ function Account({ acc, signals }) {
       </table>
 
       {/* Q2 — WHO HOLDS THE POWER */}
-      <h3 style={{ color: "var(--good)", fontSize: 12, letterSpacing: 1, marginTop: 14 }}>🧭 2 · WHO HOLDS THE POWER?</h3>
+      <h3><Compass size={15} strokeWidth={1.5} /> 2 · Who holds the power?</h3>
       <div className="grid">
         {[...(acc.opportunities ?? []), ...(acc.offers ?? [])]
           .filter((o) => o.power)
@@ -235,7 +236,7 @@ function Account({ acc, signals }) {
       )}
 
       {/* Q3 — WHAT DO YOU DO FIRST */}
-      <h3 style={{ color: "var(--good)", fontSize: 12, letterSpacing: 1, marginTop: 14 }}>⚡ 3 · WHAT DO I DO FIRST?</h3>
+      <h3><Zap size={15} strokeWidth={1.5} /> 3 · What do I do first?</h3>
       <ol style={{ margin: "4px 0 0", paddingLeft: 20 }}>
         {(acc.moves ?? []).map((m) => (
           <li key={m.rank} style={{ marginBottom: 14 }}>
@@ -248,7 +249,7 @@ function Account({ acc, signals }) {
       </ol>
       {(acc.drafts ?? []).length > 0 && (
         <>
-          <h3 style={{ color: "var(--accent)", fontSize: 12, letterSpacing: 1, marginTop: 12 }}>✍️ 3b · DRAFTS WRITTEN AND READY TO SEND</h3>
+          <h3><PenLine size={15} strokeWidth={1.5} /> 3b · Drafts written and ready to send</h3>
           {acc.drafts.map((d, i) => (
             <div key={i} style={{ borderLeft: "3px solid var(--accent)", paddingLeft: 10, margin: "8px 0" }}>
               <b>To: {d.to}</b>
@@ -262,7 +263,7 @@ function Account({ acc, signals }) {
       )}
 
       {/* Q4 — WHAT IS ABOUT TO GO WRONG */}
-      <h3 style={{ color: "var(--bad)", fontSize: 12, letterSpacing: 1, marginTop: 14 }}>🚨 4 · WHAT IS ABOUT TO GO WRONG?</h3>
+      <h3><TriangleAlert size={15} strokeWidth={1.5} /> 4 · What is about to go wrong?</h3>
       {(acc.risks ?? []).map((r, i) => (
         <div key={i} style={{ borderLeft: "3px solid var(--bad)", paddingLeft: 12, margin: "12px 0" }}>
           <b>{r.title}</b> <Cite id={r.cites?.join(", ")} />
@@ -272,7 +273,7 @@ function Account({ acc, signals }) {
       ))}
 
       {/* Q5 — WHAT DO I STILL NOT KNOW */}
-      <h3 style={{ color: "var(--good)", fontSize: 12, letterSpacing: 1, marginTop: 14 }}>🔍 5 · WHAT DO I STILL NOT KNOW?</h3>
+      <h3><Search size={15} strokeWidth={1.5} /> 5 · What do I still not know?</h3>
       {(acc.gaps ?? []).map((g, i) => (
         <div key={i} style={{ marginBottom: 14 }}>
           <b>{g.question}</b> <Cite id={g.cites?.join(", ")} />
@@ -380,13 +381,12 @@ export default async function Page() {
 
   return (
     <div className="wrap">
-      <div className="aurora" aria-hidden="true"><i /><i /><i /></div>
       <header className="top">
         <div className="brand">
           <span className="logo">V</span>
           <div>
             <h1>VIVEK CRM</h1>
-            <span className="stamp">TWO ACCOUNTS · EVERY NUMBER TRACED · SNAPSHOT {data.exportedAt} · MINUTE {data.minute}</span>
+            <span className="stamp">Two accounts · every number traced · snapshot {data.exportedAt} · minute {data.minute}</span>
           </div>
         </div>
         <div className="topbadges">
