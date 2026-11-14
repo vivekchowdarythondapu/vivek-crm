@@ -344,7 +344,7 @@ export default async function Page() {
       <header className="top">
         <h1>QUESTATHON CRM — TWO ACCOUNTS, EVERY NUMBER TRACED</h1>
         <span className="stamp">
-          snapshot: {data.exportedAt} · minute {data.minute} · citations [id] point into the evidence drawer
+          Vivek · Questathon ID CSM-0257 · snapshot: {data.exportedAt} · minute {data.minute} · citations [id] point into the evidence drawer
         </span>
       </header>
 
