@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Questathon CRM — Vivek",
+  title: "Vivek CRM — Live CRM for two accounts",
   description: "Live CRM for two accounts, every number traced to its source.",
 };
 

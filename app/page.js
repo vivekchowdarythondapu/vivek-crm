@@ -356,7 +356,7 @@ export default async function Page() {
     return (
       <div className="wrap">
         <header className="top">
-          <h1>QUESTATHON CRM</h1>
+          <h1>VIVEK CRM</h1>
         </header>
         <div className="panel">No stored data found. Run <code>node scripts/pull.mjs</code> first.</div>
       </div>
@@ -385,7 +385,7 @@ export default async function Page() {
         <div className="brand">
           <span className="logo">V</span>
           <div>
-            <h1>QUESTATHON CRM</h1>
+            <h1>VIVEK CRM</h1>
             <span className="stamp">TWO ACCOUNTS · EVERY NUMBER TRACED · SNAPSHOT {data.exportedAt} · MINUTE {data.minute}</span>
           </div>
         </div>
