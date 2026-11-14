@@ -75,7 +75,7 @@ export default function Signals({ initialSignals }) {
 
   return (
     <div className="panel">
-      <h2>Live · signals &amp; notes written back</h2>
+      <h2><span className="pulse" />Live · signals &amp; notes written back</h2>
       <button onClick={refreshSignals} disabled={false}>check signals now</button>
       <span className="tag">{status || "polling every 70s"}</span>
       {error && <pre className="raw">⚠ {error}</pre>}

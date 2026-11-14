@@ -87,15 +87,20 @@ function Account({ acc, signals }) {
 
   return (
     <div className="panel" style={{ borderColor: "#3a4a5a" }}>
-      <h2 style={{ fontSize: 15 }}>
-        ACCOUNT {acc.id} — {acc.name}
-      </h2>
-      <p className="cite">
-        Official story: {acc.officialStory} <Cite id={`official_story:${acc.id}`} />
-      </p>
+      <div className="acc-head">
+        <span className="acc-avatar">{acc.id}</span>
+        <div>
+          <h2 style={{ margin: 0, fontSize: 16, letterSpacing: 0.5 }}>
+            ACCOUNT {acc.id} — {acc.name}
+          </h2>
+          <span className="cite">
+            Official story: {acc.officialStory} <Cite id={`official_story:${acc.id}`} />
+          </span>
+        </div>
+      </div>
 
       {/* Q1 — WHAT IS THE BOOK WORTH */}
-      <h3 style={{ color: "var(--good)", fontSize: 12, letterSpacing: 1, marginTop: 14 }}>1 · WHAT IS THE BOOK WORTH?</h3>
+      <h3 style={{ color: "var(--good)", fontSize: 12, letterSpacing: 1, marginTop: 14 }}>💰 1 · WHAT IS THE BOOK WORTH?</h3>
       <p className="cite">
         Closed &amp; backed: <b style={{ color: "var(--text)" }}>${backedTotal.toLocaleString()}</b> — each deal backed by
         its own record below. Pipeline is listed deal-by-deal; no single champion total is claimed beyond the game's own
@@ -178,7 +183,7 @@ function Account({ acc, signals }) {
       </table>
 
       {/* Q2 — WHO HOLDS THE POWER */}
-      <h3 style={{ color: "var(--good)", fontSize: 12, letterSpacing: 1, marginTop: 14 }}>2 · WHO HOLDS THE POWER?</h3>
+      <h3 style={{ color: "var(--good)", fontSize: 12, letterSpacing: 1, marginTop: 14 }}>🧭 2 · WHO HOLDS THE POWER?</h3>
       <div className="grid">
         {[...(acc.opportunities ?? []), ...(acc.offers ?? [])]
           .filter((o) => o.power)
@@ -211,7 +216,7 @@ function Account({ acc, signals }) {
       )}
 
       {/* Q3 — WHAT DO YOU DO FIRST */}
-      <h3 style={{ color: "var(--good)", fontSize: 12, letterSpacing: 1, marginTop: 14 }}>3 · WHAT DO I DO FIRST?</h3>
+      <h3 style={{ color: "var(--good)", fontSize: 12, letterSpacing: 1, marginTop: 14 }}>⚡ 3 · WHAT DO I DO FIRST?</h3>
       <ol style={{ margin: "4px 0 0", paddingLeft: 20 }}>
         {(acc.moves ?? []).map((m) => (
           <li key={m.rank} style={{ marginBottom: 8 }}>
@@ -224,7 +229,7 @@ function Account({ acc, signals }) {
       </ol>
       {(acc.drafts ?? []).length > 0 && (
         <>
-          <h3 style={{ color: "var(--accent)", fontSize: 12, letterSpacing: 1, marginTop: 12 }}>3b · DRAFTS WRITTEN AND READY TO SEND</h3>
+          <h3 style={{ color: "var(--accent)", fontSize: 12, letterSpacing: 1, marginTop: 12 }}>✍️ 3b · DRAFTS WRITTEN AND READY TO SEND</h3>
           {acc.drafts.map((d, i) => (
             <div key={i} style={{ borderLeft: "3px solid var(--accent)", paddingLeft: 10, margin: "8px 0" }}>
               <b>To: {d.to}</b>
@@ -238,7 +243,7 @@ function Account({ acc, signals }) {
       )}
 
       {/* Q4 — WHAT IS ABOUT TO GO WRONG */}
-      <h3 style={{ color: "var(--bad)", fontSize: 12, letterSpacing: 1, marginTop: 14 }}>4 · WHAT IS ABOUT TO GO WRONG?</h3>
+      <h3 style={{ color: "var(--bad)", fontSize: 12, letterSpacing: 1, marginTop: 14 }}>🚨 4 · WHAT IS ABOUT TO GO WRONG?</h3>
       {(acc.risks ?? []).map((r, i) => (
         <div key={i} style={{ borderLeft: "3px solid var(--bad)", paddingLeft: 10, margin: "8px 0" }}>
           <b>{r.title}</b> <Cite id={r.cites?.join(", ")} />
@@ -248,7 +253,7 @@ function Account({ acc, signals }) {
       ))}
 
       {/* Q5 — WHAT DO I STILL NOT KNOW */}
-      <h3 style={{ color: "var(--good)", fontSize: 12, letterSpacing: 1, marginTop: 14 }}>5 · WHAT DO I STILL NOT KNOW?</h3>
+      <h3 style={{ color: "var(--good)", fontSize: 12, letterSpacing: 1, marginTop: 14 }}>🔍 5 · WHAT DO I STILL NOT KNOW?</h3>
       {(acc.gaps ?? []).map((g, i) => (
         <div key={i} style={{ marginBottom: 8 }}>
           <b>{g.question}</b> <Cite id={g.cites?.join(", ")} />
@@ -339,14 +344,59 @@ export default async function Page() {
     );
   }
 
+  const wonTotal = data.accounts.reduce(
+    (s, acc) => s + (acc.offers ?? []).filter((o) => o.status === "won").reduce((x, o) => x + (o.value ?? 0), 0),
+    0
+  );
+  const morningTotal =
+    wonTotal +
+    data.accounts.reduce(
+      (s, acc) => s + (acc.opportunities ?? []).reduce((x, o) => x + (o.morningValue ?? 0), 0),
+      0
+    );
+  const openTotal = data.accounts.reduce(
+    (s, acc) => s + (acc.offers ?? []).filter((o) => o.status === "open").reduce((x, o) => x + (o.value ?? 0), 0),
+    0
+  );
+
   return (
     <div className="wrap">
       <header className="top">
-        <h1>QUESTATHON CRM — TWO ACCOUNTS, EVERY NUMBER TRACED</h1>
-        <span className="stamp">
-          Vivek · Questathon ID CSM-0257 · snapshot: {data.exportedAt} · minute {data.minute} · citations [id] point into the evidence drawer
-        </span>
+        <div className="brand">
+          <span className="logo">V</span>
+          <div>
+            <h1>QUESTATHON CRM</h1>
+            <span className="stamp">TWO ACCOUNTS · EVERY NUMBER TRACED · SNAPSHOT {data.exportedAt} · MINUTE {data.minute}</span>
+          </div>
+        </div>
+        <div className="topbadges">
+          <span className="badge grad">VIVEK · CSM-0257</span>
+          <span className="badge live"><span className="pulse" />LIVE · POLLING 70s</span>
+        </div>
       </header>
+
+      <div className="stats">
+        <div className="stat">
+          <div className="k">Closed &amp; backed</div>
+          <div className="v g">${wonTotal.toLocaleString()}</div>
+          <div className="s">priority support + training [a_priority_support, a_training]</div>
+        </div>
+        <div className="stat">
+          <div className="k">Morning-review book</div>
+          <div className="v g">${morningTotal.toLocaleString()}</div>
+          <div className="s">deal by deal [morning-review]</div>
+        </div>
+        <div className="stat">
+          <div className="k">Open offers</div>
+          <div className="v">${openTotal.toLocaleString()}</div>
+          <div className="s">B: $50k + $160k [b_priority_support, b_more_plants]</div>
+        </div>
+        <div className="stat">
+          <div className="k">Answers live</div>
+          <div className="v">5 × 2</div>
+          <div className="s">worth · power · moves · risks · gaps</div>
+        </div>
+      </div>
 
       {data.accounts.map((acc) => (
         <Account key={acc.id} acc={acc} />
