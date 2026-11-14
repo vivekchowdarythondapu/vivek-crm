@@ -1,0 +1,85 @@
+:root {
+  --bg: #101418;
+  --panel: #1a2129;
+  --line: #2c3a47;
+  --text: #e8eef4;
+  --muted: #8aa0b4;
+  --accent: #ffcc00;
+  --good: #6ee7a0;
+  --bad: #ff8a7a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.wrap { max-width: 1180px; margin: 0 auto; padding: 24px 20px 80px; }
+
+header.top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+header.top h1 { font-size: 18px; margin: 0; letter-spacing: 1px; }
+header.top .stamp { color: var(--muted); font-size: 12px; }
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.panel h2 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+button {
+  background: var(--accent);
+  color: #101418;
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  margin: 2px 6px 6px 0;
+}
+button:disabled { opacity: 0.45; cursor: wait; }
+button.ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); font-weight: 400; }
+
+pre.raw {
+  background: #0b0f13;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  overflow: auto;
+  max-height: 420px;
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+
+.tag { display: inline-block; border: 1px solid var(--line); border-radius: 6px; padding: 1px 8px; font-size: 11px; color: var(--muted); }
+.tag.good { color: var(--good); border-color: var(--good); }
+.tag.bad { color: var(--bad); border-color: var(--bad); }
+.cite { color: var(--muted); font-size: 11px; }
