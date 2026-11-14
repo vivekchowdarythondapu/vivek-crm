@@ -8,7 +8,12 @@ A one-screen CRM my manager opens on Monday morning. For each of my two
 accounts (A: Eastern Counties, B: Aldermoor) it answers five questions: what
 the book is worth, who holds the power, what to do first, what is about to go
 wrong, and what we still don't know. It is written for a manager with ten
-minutes: answers first, evidence one click away.
+minutes: answers first, evidence one click away. This morning's review
+valued account A's book at **$854,509** — $105,000 closed (priority support
+$60k + operator training $45k) plus per-deal values shown separately:
+$132,816 renewal, $65,193 Tarn, $551,500 tender, $0 Westmere (bid window
+passed). Each deal carries only its own number; the one sum shown is the
+morning-review one, deal by deal, never a champion total.
 
 ## How it decides: the rules
 
@@ -29,8 +34,10 @@ minutes: answers first, evidence one click away.
 ## What it does not do yet
 
 - It does not forecast revenue beyond what the records support.
-- It does not auto-draft customer replies — it flags the deadline, the human
-  writes the words.
+- Customer replies are pre-drafted with an owner and a date (the draft-writer
+  pattern — the game's own benchmark says a reply the tool drafts gets chosen
+  about 85% of the time) — but every fact still unverified is left as an
+  explicit [TODO] in the draft; the human confirms before anything is sent.
 - It does not merge the two accounts into one blended total, on purpose:
   blending hides which deal is at risk.
 - It does not yet catch silent churn like Aldermoor's three stopped docks on
