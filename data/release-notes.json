@@ -1,0 +1,28 @@
+{
+  "note": "Overnight software updates sent to every dock. Fictional.",
+  "releases": [
+    {
+      "date": "2026-05-20",
+      "version": "2026.05",
+      "notes": [
+        "Fixes a delay in live video at night on some docks.",
+        "Minor fixes."
+      ]
+    },
+    {
+      "date": "2026-07-08",
+      "version": "2026.07",
+      "notes": [
+        "Map layers load faster.",
+        "Minor fixes."
+      ]
+    },
+    {
+      "date": "2026-09-16",
+      "version": "2026.09",
+      "notes": [
+        "Security and stability fixes."
+      ]
+    }
+  ]
+}

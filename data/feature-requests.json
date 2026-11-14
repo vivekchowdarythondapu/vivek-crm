@@ -1,0 +1,518 @@
+{
+  "note": "FlytBase's log of feature requests across its customers. Fictional. A status is where the request sits in the log (new, under review, closed) and is not a commitment to build anything. Other customers are described, not named.",
+  "requests": [
+    {
+      "id": "FR-011",
+      "title": "A monthly summary chart for boards",
+      "product_area": "reports",
+      "status": "new",
+      "mentions": 18,
+      "first_raised": "2025-11-20",
+      "last_raised": "2026-11-10",
+      "raised_by": [
+        "an airport operator",
+        "a wind farm operator",
+        "a logistics park",
+        "a security services firm",
+        "a water utility"
+      ],
+      "raised_by_your_accounts": [
+        {
+          "account": "A",
+          "who": "Rhys Calder",
+          "via": "call, 2 June 2026",
+          "date": "2026-06-02"
+        }
+      ]
+    },
+    {
+      "id": "FR-020",
+      "title": "Maintenance calendar for docks",
+      "product_area": "fleet",
+      "status": "closed",
+      "mentions": 18,
+      "first_raised": "2025-08-22",
+      "last_raised": "2025-12-22",
+      "raised_by": [
+        "a logistics park",
+        "a mining company",
+        "a construction group"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-003",
+      "title": "Hold a mission automatically when wind passes a set limit",
+      "product_area": "missions",
+      "status": "new",
+      "mentions": 17,
+      "first_raised": "2026-01-25",
+      "last_raised": "2026-03-11",
+      "raised_by": [
+        "a county fire service",
+        "a security services firm",
+        "an oil terminal",
+        "a logistics park",
+        "a water utility"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-027",
+      "title": "Weather service of the customer's choice",
+      "product_area": "integrations",
+      "status": "under review",
+      "mentions": 17,
+      "first_raised": "2026-03-05",
+      "last_raised": "2026-11-10",
+      "raised_by": [
+        "a wind farm operator",
+        "a solar farm operator",
+        "a mining company"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-010",
+      "title": "Flight reports as a spreadsheet, on a schedule",
+      "product_area": "reports",
+      "status": "new",
+      "mentions": 16,
+      "first_raised": "2025-06-15",
+      "last_raised": "2026-11-10",
+      "raised_by": [
+        "an airport operator",
+        "an oil terminal",
+        "a mining company",
+        "a rail infrastructure owner",
+        "a logistics park"
+      ],
+      "raised_by_your_accounts": [
+        {
+          "account": "A",
+          "who": "Metro Central operations",
+          "via": "FB-10781",
+          "date": "2026-08-21"
+        }
+      ]
+    },
+    {
+      "id": "FR-019",
+      "title": "Bulk rename of docks",
+      "product_area": "fleet",
+      "status": "under review",
+      "mentions": 16,
+      "first_raised": "2025-04-20",
+      "last_raised": "2026-09-23",
+      "raised_by": [
+        "a water utility",
+        "a wind farm operator",
+        "a county fire service",
+        "a mining company"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-031",
+      "title": "No-fly zones drawn by the customer",
+      "product_area": "maps",
+      "status": "new",
+      "mentions": 16,
+      "first_raised": "2025-04-14",
+      "last_raised": "2026-04-11",
+      "raised_by": [
+        "a security services firm",
+        "a construction group",
+        "a steel works"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-006",
+      "title": "Blur faces and number plates in live video",
+      "product_area": "streaming",
+      "status": "new",
+      "mentions": 15,
+      "first_raised": "2025-11-04",
+      "last_raised": "2026-04-04",
+      "raised_by": [
+        "a security services firm",
+        "a solar farm operator",
+        "a city council",
+        "a water utility",
+        "a steel works"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-022",
+      "title": "Acknowledge an alert from a phone",
+      "product_area": "alerts",
+      "status": "closed",
+      "mentions": 15,
+      "first_raised": "2025-09-03",
+      "last_raised": "2026-01-08",
+      "raised_by": [
+        "a logistics park",
+        "a construction group",
+        "a university campus",
+        "a county fire service"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-021",
+      "title": "Support for a second aircraft type",
+      "product_area": "fleet",
+      "status": "under review",
+      "mentions": 14,
+      "first_raised": "2025-10-05",
+      "last_raised": "2026-11-10",
+      "raised_by": [
+        "a university campus",
+        "a city council",
+        "a county fire service"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-023",
+      "title": "Quiet hours for non-urgent alerts",
+      "product_area": "alerts",
+      "status": "closed",
+      "mentions": 14,
+      "first_raised": "2026-01-16",
+      "last_raised": "2026-03-17",
+      "raised_by": [
+        "a construction group",
+        "a water utility",
+        "a wind farm operator",
+        "an oil terminal",
+        "a steel works"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-017",
+      "title": "Battery health history for each aircraft",
+      "product_area": "fleet",
+      "status": "new",
+      "mentions": 13,
+      "first_raised": "2025-09-26",
+      "last_raised": "2026-01-09",
+      "raised_by": [
+        "a county fire service",
+        "a steel works",
+        "a mining company",
+        "a wind farm operator"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-001",
+      "title": "Missions that start at one dock and end at another",
+      "product_area": "missions",
+      "status": "closed",
+      "mentions": 12,
+      "first_raised": "2025-03-12",
+      "last_raised": "2025-06-20",
+      "raised_by": [
+        "a solar farm operator",
+        "a steel works",
+        "a county fire service",
+        "an oil terminal",
+        "a city council"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-008",
+      "title": "Lower-bandwidth live view for weak links",
+      "product_area": "streaming",
+      "status": "new",
+      "mentions": 12,
+      "first_raised": "2025-03-11",
+      "last_raised": "2026-08-20",
+      "raised_by": [
+        "a wind farm operator",
+        "a logistics park",
+        "a rail infrastructure owner",
+        "an airport operator",
+        "a steel works"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-014",
+      "title": "A view-only role limited to chosen docks",
+      "product_area": "dashboard",
+      "status": "new",
+      "mentions": 12,
+      "first_raised": "2025-11-10",
+      "last_raised": "2026-11-10",
+      "raised_by": [
+        "a university campus",
+        "a city council",
+        "a water utility",
+        "a steel works"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-018",
+      "title": "A notice when a dock has not flown for 30 days",
+      "product_area": "fleet",
+      "status": "closed",
+      "mentions": 10,
+      "first_raised": "2026-04-13",
+      "last_raised": "2026-09-27",
+      "raised_by": [
+        "a wind farm operator",
+        "a construction group",
+        "a steel works",
+        "a rail infrastructure owner",
+        "a city council"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-005",
+      "title": "Launch a flight from an outside sensor alarm",
+      "product_area": "missions",
+      "status": "new",
+      "mentions": 9,
+      "first_raised": "2025-11-07",
+      "last_raised": "2026-01-11",
+      "raised_by": [
+        "a water utility",
+        "an oil terminal",
+        "a university campus",
+        "an airport operator"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-024",
+      "title": "Send detections to a video management system",
+      "product_area": "integrations",
+      "status": "under review",
+      "mentions": 9,
+      "first_raised": "2026-01-13",
+      "last_raised": "2026-11-10",
+      "raised_by": [
+        "a county fire service",
+        "a steel works",
+        "an oil terminal",
+        "a mining company"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-007",
+      "title": "Share a live view by link that expires",
+      "product_area": "streaming",
+      "status": "under review",
+      "mentions": 8,
+      "first_raised": "2026-03-18",
+      "last_raised": "2026-11-10",
+      "raised_by": [
+        "a rail infrastructure owner",
+        "a university campus",
+        "a mining company",
+        "a city council"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-025",
+      "title": "Calendar feed of scheduled flights",
+      "product_area": "integrations",
+      "status": "new",
+      "mentions": 8,
+      "first_raised": "2025-03-17",
+      "last_raised": "2026-03-14",
+      "raised_by": [
+        "a mining company",
+        "a steel works",
+        "a construction group",
+        "a security services firm"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-009",
+      "title": "Picture-in-picture for thermal and visual",
+      "product_area": "streaming",
+      "status": "under review",
+      "mentions": 6,
+      "first_raised": "2025-10-11",
+      "last_raised": "2026-06-03",
+      "raised_by": [
+        "a county fire service",
+        "a logistics park",
+        "a university campus",
+        "a rail infrastructure owner"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-004",
+      "title": "Repeat a mission only on chosen weekdays",
+      "product_area": "missions",
+      "status": "new",
+      "mentions": 5,
+      "first_raised": "2025-05-14",
+      "last_raised": "2025-11-16",
+      "raised_by": [
+        "a county fire service",
+        "a security services firm",
+        "a steel works",
+        "an oil terminal",
+        "an airport operator"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-026",
+      "title": "Webhook when a flight ends",
+      "product_area": "integrations",
+      "status": "new",
+      "mentions": 5,
+      "first_raised": "2025-07-24",
+      "last_raised": "2026-09-08",
+      "raised_by": [
+        "a university campus",
+        "a solar farm operator",
+        "a wind farm operator",
+        "a mining company"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-029",
+      "title": "Offline maps for sites with poor signal",
+      "product_area": "maps",
+      "status": "under review",
+      "mentions": 5,
+      "first_raised": "2025-03-24",
+      "last_raised": "2025-05-30",
+      "raised_by": [
+        "an airport operator",
+        "a steel works",
+        "a rail infrastructure owner",
+        "a university campus"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-002",
+      "title": "Copy a patrol schedule from one site to others",
+      "product_area": "missions",
+      "status": "under review",
+      "mentions": 4,
+      "first_raised": "2025-11-13",
+      "last_raised": "2026-09-29",
+      "raised_by": [
+        "a city council",
+        "a steel works",
+        "a university campus"
+      ],
+      "raised_by_your_accounts": [
+        {
+          "account": "B",
+          "who": "FlytBase rollout lead, during the rollout",
+          "via": "internal",
+          "date": "2026-03-17"
+        }
+      ]
+    },
+    {
+      "id": "FR-013",
+      "title": "Mission report as a single document with images",
+      "product_area": "reports",
+      "status": "new",
+      "mentions": 4,
+      "first_raised": "2026-02-08",
+      "last_raised": "2026-06-16",
+      "raised_by": [
+        "a logistics park",
+        "an oil terminal",
+        "a construction group"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-016",
+      "title": "Single sign-on with the customer's own directory",
+      "product_area": "dashboard",
+      "status": "closed",
+      "mentions": 4,
+      "first_raised": "2026-03-08",
+      "last_raised": "2026-11-10",
+      "raised_by": [
+        "a mining company",
+        "a wind farm operator",
+        "a county fire service"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-030",
+      "title": "Customer's own site plan as a map layer",
+      "product_area": "maps",
+      "status": "under review",
+      "mentions": 4,
+      "first_raised": "2025-07-04",
+      "last_raised": "2026-02-24",
+      "raised_by": [
+        "a construction group",
+        "an airport operator",
+        "a logistics park"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-012",
+      "title": "A report of flights by site",
+      "product_area": "reports",
+      "status": "under review",
+      "mentions": 3,
+      "first_raised": "2025-03-23",
+      "last_raised": "2026-05-01",
+      "raised_by": [
+        "a logistics park",
+        "a mining company",
+        "a county fire service"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-028",
+      "title": "Asset register link for inspection photos",
+      "product_area": "integrations",
+      "status": "under review",
+      "mentions": 3,
+      "first_raised": "2025-12-18",
+      "last_raised": "2026-09-27",
+      "raised_by": [
+        "a city council",
+        "a water utility"
+      ],
+      "raised_by_your_accounts": []
+    },
+    {
+      "id": "FR-015",
+      "title": "Ten or more live feeds on one screen",
+      "product_area": "dashboard",
+      "status": "new",
+      "mentions": 2,
+      "first_raised": "2025-12-09",
+      "last_raised": "2026-11-10",
+      "raised_by": [
+        "a wind farm operator",
+        "a rail infrastructure owner"
+      ],
+      "raised_by_your_accounts": []
+    }
+  ]
+}

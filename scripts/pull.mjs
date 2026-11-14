@@ -1,7 +1,17 @@
 // One-shot local pull: fetches each base tool once (respecting 1 call/min) and stores JSON in data/.
 // Run: node scripts/pull.mjs
-import { mkdir, writeFile } from "node:fs/promises";
-import { callTool } from "../lib/mcp.js";
+import { mkdir, writeFile, readFile } from "node:fs/promises";
+
+// Node does not auto-load .env.local outside Next.js — load it manually.
+const envText = await readFile(new URL("../.env.local", import.meta.url), "utf8");
+const tokenMatch = envText.match(/^AQ_TOKEN\s*=\s*"?([^"\r\n]*)"?\s*$/m);
+if (tokenMatch?.[1]) process.env.AQ_TOKEN ??= tokenMatch[1].trim();
+if (!process.env.AQ_TOKEN) {
+  console.error("No AQ_TOKEN found in .env.local — paste your token and retry.");
+  process.exit(1);
+}
+
+const { callTool } = await import("../lib/mcp.js");
 
 const OUT = "data";
 

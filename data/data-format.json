@@ -1,0 +1,295 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "account-quest/v2_export.schema.json",
+  "title": "Account Quest v2 export",
+  "description": "What a player found during discovery. Everything in it is something the player was told or holds. Build your book of business from this; you can only claim value it backs.",
+  "type": "object",
+  "required": [
+    "format",
+    "player",
+    "exported_at",
+    "minute",
+    "world_closed",
+    "accounts",
+    "files"
+  ],
+  "properties": {
+    "format": {
+      "const": "account-quest-v2-export/1"
+    },
+    "player": {
+      "type": "string",
+      "description": "Player code"
+    },
+    "exported_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "minute": {
+      "type": "number",
+      "description": "Minutes after discovery opened when the export was taken"
+    },
+    "world_closed": {
+      "type": "boolean"
+    },
+    "accounts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "stakeholders",
+          "facts",
+          "opportunities",
+          "deadlines"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "official_story": {
+            "type": "string",
+            "description": "What the account sheet says. Unverified."
+          },
+          "stakeholders": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "name",
+                "role",
+                "relationship"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "role": {
+                  "type": "string"
+                },
+                "relationship": {
+                  "enum": [
+                    "guarded",
+                    "neutral",
+                    "warm",
+                    "ally"
+                  ]
+                },
+                "available": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "facts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "text",
+                "said_by",
+                "status",
+                "learned_at_minute"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Cite this id as evidence"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "said_by": {
+                  "type": "string"
+                },
+                "status": {
+                  "enum": [
+                    "claim",
+                    "told",
+                    "verified"
+                  ],
+                  "description": "claim: someone's confident claim, may be wrong. told: what a person said. verified: backed by a file you hold."
+                },
+                "verified_by": {
+                  "type": "string",
+                  "description": "File id, when verified"
+                },
+                "learned_at_minute": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "opportunities": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "title",
+                "stage",
+                "evidence"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "stage": {
+                  "enum": [
+                    "identified",
+                    "qualified",
+                    "cleared",
+                    "agreed"
+                  ]
+                },
+                "worth_up_to": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "description": "Shown once qualified"
+                },
+                "size": {
+                  "enum": [
+                    "base",
+                    "big",
+                    null
+                  ]
+                },
+                "blocker": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "text": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "enum": [
+                        "open",
+                        "cleared"
+                      ]
+                    }
+                  }
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Fact and file ids you hold that bear on this deal"
+                },
+                "deadline": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "text": {
+                      "type": "string"
+                    },
+                    "minute": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "offers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "title",
+                "value",
+                "status"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "number"
+                },
+                "pitch_to": {
+                  "type": "string"
+                },
+                "status": {
+                  "enum": [
+                    "open",
+                    "won",
+                    "declined"
+                  ]
+                }
+              }
+            }
+          },
+          "deadlines": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "text",
+                "minute"
+              ],
+              "properties": {
+                "text": {
+                  "type": "string"
+                },
+                "minute": {
+                  "type": "number"
+                },
+                "passed": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "path"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "account": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
