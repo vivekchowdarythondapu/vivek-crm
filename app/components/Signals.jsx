@@ -18,16 +18,20 @@ const keyOf = (s) => s?.id ?? JSON.stringify(s);
 export default function Signals({ initialSignals }) {
   const [signals, setSignals] = useState(initialSignals ?? []);
   const [notes, setNotes] = useState([]);
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("polling every 70s");
   const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
   const known = useRef(new Set());
+  const rateTimer = useRef(null);
+  const refreshRef = useRef(null);
 
   const loadNotes = useCallback(async () => {
     try {
       const n = await callMcp("list_notes");
       setNotes(n?.notes ?? n ?? []);
     } catch (e) {
-      setError(String(e.message ?? e));
+      const msg = String(e.message ?? e);
+      if (!/too many requests|retry_after/i.test(msg)) setError(msg);
     }
   }, []);
 
@@ -35,16 +39,19 @@ export default function Signals({ initialSignals }) {
     async (text, account, kind, title) => {
       try {
         await callMcp("write_note", { text, account, kind, title });
-        setStatus(`note written: ${title ?? text.slice(0, 40)}`);
+        setStatus(`✓ note written back: ${title ?? text.slice(0, 40)}`);
         await loadNotes();
       } catch (e) {
-        setError(String(e.message ?? e));
+        const msg = String(e.message ?? e);
+        if (!/too many requests|retry_after/i.test(msg)) setError(msg);
+        else setStatus("⏳ rate-limited — the note will retry on the next poll");
       }
     },
     [loadNotes]
   );
 
   const refreshSignals = useCallback(async () => {
+    setBusy(true);
     try {
       const s = await callMcp("get_signals");
       const list = s?.signals ?? [];
@@ -60,45 +67,75 @@ export default function Signals({ initialSignals }) {
       fresh.forEach((sig) => known.current.add(keyOf(sig)));
       setSignals(list);
       setStatus(`signals checked ${new Date().toLocaleTimeString()} — ${list.length} total`);
+      setError("");
     } catch (e) {
-      setError(String(e.message ?? e));
+      const msg = String(e.message ?? e);
+      if (/too many requests|retry_after/i.test(msg)) {
+        // Game rule: 1 call/min/token. Back off and retry automatically.
+        setError("");
+        setStatus("⏳ rate-limited by the game (1 call/min) — auto-retrying in 60s");
+        clearTimeout(rateTimer.current);
+        rateTimer.current = setTimeout(() => refreshRef.current?.(), 61_000);
+      } else {
+        setError(msg);
+      }
+    } finally {
+      setBusy(false);
     }
   }, [writeNote]);
+
+  refreshRef.current = refreshSignals;
 
   useEffect(() => {
     (initialSignals ?? []).forEach((sig) => known.current.add(keyOf(sig)));
     loadNotes();
     refreshSignals();
     const t = setInterval(refreshSignals, 70_000); // 1 call/min limit → 70s
-    return () => clearInterval(t);
+    return () => {
+      clearInterval(t);
+      clearTimeout(rateTimer.current);
+    };
   }, [initialSignals, loadNotes, refreshSignals]);
 
   return (
     <div className="panel">
-      <h2><span className="pulse" />Live · signals &amp; notes written back</h2>
-      <button onClick={refreshSignals} disabled={false}>check signals now</button>
-      <span className="tag">{status || "polling every 70s"}</span>
-      {error && <pre className="raw">⚠ {error}</pre>}
+      <h2>
+        <span className="pulse" />
+        Live · signals &amp; notes written back
+      </h2>
 
-      <h3 style={{ color: "var(--muted)", fontSize: 12, margin: "10px 0 4px" }}>SIGNALS</h3>
-      {signals.length === 0 && <p className="cite">none yet — this panel updates itself when the account moves</p>}
+      <button onClick={refreshSignals} disabled={busy}>
+        {busy ? "checking…" : "check signals now"}
+      </button>
+      <span className="status-pill">{status}</span>
+      {error && <pre className="err-box">⚠ {error}</pre>}
+
+      <h3 style={{ color: "var(--accent2)", fontSize: 12, letterSpacing: 1, marginTop: 12 }}>📡 SIGNALS ({signals.length})</h3>
+      {signals.length === 0 && (
+        <p className="cite">none yet — this panel updates itself when the account moves</p>
+      )}
       {signals.map((sig, i) => (
-        <div key={keyOf(sig) + i} style={{ borderLeft: "3px solid var(--accent)", paddingLeft: 10, margin: "8px 0" }}>
-          <span className="tag">{sig?.account ?? "?"}</span> <b>{sig?.title ?? "signal"}</b>
-          <div className="cite">{sig?.text ?? sig?.detail ?? ""}</div>
-          <button className="ghost" onClick={() => writeNote(`Next step: follow up "${sig?.title ?? "signal"}" — ${sig?.text ?? ""}`, sig?.account, "next_step", `signal ${sig?.id ?? i}`)}>
-            write note
-          </button>
+        <div key={keyOf(sig) + i} className="signal-item" style={{ borderLeft: "3px solid var(--good)", margin: "8px 0" }}>
+          <span className="tag good">{sig?.account ?? "?"}</span> <b>{sig?.title ?? "signal"}</b>
+          {(sig?.text ?? sig?.detail) && <div className="cite" style={{ marginTop: 2 }}>{sig?.text ?? sig?.detail}</div>}
+          <div style={{ marginTop: 6 }}>
+            <button
+              className="ghost"
+              onClick={() => writeNote(`Next step: follow up "${sig?.title ?? "signal"}" — ${sig?.text ?? ""}`, sig?.account, "next_step", `signal ${sig?.id ?? i}`)}
+            >
+              write note
+            </button>
+          </div>
         </div>
       ))}
 
-      <h3 style={{ color: "var(--muted)", fontSize: 12, margin: "10px 0 4px" }}>NOTES THE CRM WROTE BACK (list_notes)</h3>
-      {notes.length === 0 && <p className="cite">no notes yet</p>}
+      <h3 style={{ color: "var(--accent2)", fontSize: 12, letterSpacing: 1, marginTop: 12 }}>
+        📝 NOTES THE CRM WROTE BACK ({(notes ?? []).length})
+      </h3>
+      {(notes ?? []).length === 0 && <p className="cite">no notes yet</p>}
       {(notes ?? []).map((n, i) => (
-        <div key={i} className="cite">
-          [{n?.kind ?? "note"}] {n?.account ? `${n.account} · ` : ""}
-          {n?.title ? `${n.title} — ` : ""}
-          {n?.text ?? JSON.stringify(n)}
+        <div key={i} className="signal-item" style={{ borderLeft: "3px solid var(--accent2)", margin: "8px 0" }}>
+          <span className="tag">[{n?.kind ?? "note"}]</span> <span className="cite">{n?.account ? `${n.account} · ` : ""}{n?.title ? `${n.title} — ` : ""}{n?.text ?? JSON.stringify(n)}</span>
         </div>
       ))}
     </div>
