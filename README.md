@@ -26,7 +26,8 @@ npm install
 npm run dev                  # http://localhost:3000
 ```
 
-Deployed copy: (Vercel URL goes here)
+Deployed copy: https://questathon-crm-puce.vercel.app
+Source: https://github.com/vivekchowdarythondapu/vivek-crm
 
 ## Architecture
 
