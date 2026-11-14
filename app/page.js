@@ -139,57 +139,62 @@ function Account({ acc, signals }) {
         <tbody>
           {won.map((o) => (
             <tr key={o.id}>
-              <td style={{ padding: "4px 8px 4px 0", color: "var(--good)" }}>WON ${o.value?.toLocaleString()}</td>
-              <td>{o.title} → {o.pitchTo} <Cite id={o.id} /></td>
+              <td style={{ padding: "11px 8px 11px 0", color: "var(--good)", whiteSpace: "nowrap" }}>WON ${o.value?.toLocaleString()}</td>
+              <td>
+                <b>{o.title}</b> <Cite id={o.id} />
+                <div className="cite">→ {o.pitchTo}</div>
+              </td>
             </tr>
           ))}
           {(acc.opportunities ?? []).map((o) => {
             const dl = o.deadline;
             return (
               <tr key={o.id}>
-                <td style={{ padding: "4px 8px 4px 0", whiteSpace: "nowrap" }}>
+                <td style={{ padding: "11px 8px 11px 0", whiteSpace: "nowrap" }}>
                   <span className={dl?.passed ? "tag bad" : dl?.soon ? "tag" : "tag good"}>
                     {dl?.passed ? "WINDOW PASSED" : dl?.soon ? "DEADLINE SOON" : "OPEN"}
                   </span>{" "}
                   up to ${o.worth_up_to?.toLocaleString()}
                 </td>
                 <td>
-                  {o.title} · stage {o.stage} · blocker: {o.blocker?.text} <Cite id={o.id} />
-                  {o.morningValue != null && (
-                    <span className="cite"> · morning eval ${o.morningValue.toLocaleString()}</span>
-                  )}
-                  {dl && <span className="cite"> · deadline: {dl.text}</span>}
+                  <b>{o.title}</b> <Cite id={o.id} />
+                  <div className="cite">stage {o.stage} · blocker: {o.blocker?.text}</div>
+                  <div className="cite">
+                    {o.morningValue != null && <span>morning eval ${o.morningValue.toLocaleString()}</span>}
+                    {dl && <span>{o.morningValue != null ? " · " : ""}deadline: {dl.text}</span>}
+                  </div>
                 </td>
               </tr>
             );
           })}
           {open.map((o) => (
             <tr key={o.id}>
-              <td style={{ padding: "4px 8px 4px 0" }}>
+              <td style={{ padding: "11px 8px 11px 0" }}>
                 <span className="tag">OFFER OPEN</span> ${o.value?.toLocaleString()}
               </td>
               <td>
-                {o.title} → {o.pitchTo} — not pitched yet; a guarded contact gets a built case first, not an offer{" "}
-                <Cite id={o.id} />
+                <b>{o.title}</b> <Cite id={o.id} />
+                <div className="cite">→ {o.pitchTo} — not pitched yet; a guarded contact gets a built case first, not an offer</div>
               </td>
             </tr>
           ))}
           {declined.map((o) => (
             <tr key={o.id}>
-              <td style={{ padding: "4px 8px 4px 0", color: "var(--bad)" }}>DECLINED ${o.value?.toLocaleString()}</td>
+              <td style={{ padding: "11px 8px 11px 0", color: "var(--bad)", whiteSpace: "nowrap" }}>DECLINED ${o.value?.toLocaleString()}</td>
               <td>
-                {o.title} → {o.pitchTo} — declined too early: offered before the underlying case was built{" "}
-                <Cite id={o.id} />
+                <b>{o.title}</b> <Cite id={o.id} />
+                <div className="cite">→ {o.pitchTo} — declined too early: offered before the underlying case was built</div>
               </td>
             </tr>
           ))}
           {(acc.unknownDeals ?? []).map((d, i) => (
             <tr key={`ud-${i}`}>
-              <td style={{ padding: "4px 8px 4px 0" }}>
+              <td style={{ padding: "11px 8px 11px 0" }}>
                 <span className="tag bad">NEVER HEARD OF</span>
               </td>
               <td>
-                {d.title} — {d.detail} · likely owner: {d.owner} <Cite id="morning-review" />
+                <b>{d.title}</b> <Cite id="morning-review" />
+                <div className="cite">{d.detail} · likely owner: {d.owner}</div>
               </td>
             </tr>
           ))}
@@ -233,7 +238,7 @@ function Account({ acc, signals }) {
       <h3 style={{ color: "var(--good)", fontSize: 12, letterSpacing: 1, marginTop: 14 }}>⚡ 3 · WHAT DO I DO FIRST?</h3>
       <ol style={{ margin: "4px 0 0", paddingLeft: 20 }}>
         {(acc.moves ?? []).map((m) => (
-          <li key={m.rank} style={{ marginBottom: 8 }}>
+          <li key={m.rank} style={{ marginBottom: 14 }}>
             <b>{m.action}</b>
             <div className="cite">
               owner: {m.owner} · by {m.by} · moves: {m.moves} · cites: {m.cites?.join(", ")}
@@ -259,7 +264,7 @@ function Account({ acc, signals }) {
       {/* Q4 — WHAT IS ABOUT TO GO WRONG */}
       <h3 style={{ color: "var(--bad)", fontSize: 12, letterSpacing: 1, marginTop: 14 }}>🚨 4 · WHAT IS ABOUT TO GO WRONG?</h3>
       {(acc.risks ?? []).map((r, i) => (
-        <div key={i} style={{ borderLeft: "3px solid var(--bad)", paddingLeft: 10, margin: "8px 0" }}>
+        <div key={i} style={{ borderLeft: "3px solid var(--bad)", paddingLeft: 12, margin: "12px 0" }}>
           <b>{r.title}</b> <Cite id={r.cites?.join(", ")} />
           <div className="cite">{r.detail}</div>
           <div className="cite" style={{ color: "var(--bad)" }}>turns bad: {r.turnsBadWhen}</div>
@@ -269,7 +274,7 @@ function Account({ acc, signals }) {
       {/* Q5 — WHAT DO I STILL NOT KNOW */}
       <h3 style={{ color: "var(--good)", fontSize: 12, letterSpacing: 1, marginTop: 14 }}>🔍 5 · WHAT DO I STILL NOT KNOW?</h3>
       {(acc.gaps ?? []).map((g, i) => (
-        <div key={i} style={{ marginBottom: 8 }}>
+        <div key={i} style={{ marginBottom: 14 }}>
           <b>{g.question}</b> <Cite id={g.cites?.join(", ")} />
           <div className="cite">why it matters: {g.why}</div>
           <div className="cite">who could fill it: {g.who}</div>
