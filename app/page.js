@@ -1,7 +1,21 @@
 import { getAnswers } from "../lib/answers";
 import Signals from "./components/Signals.jsx";
+import CountUp from "./components/CountUp.jsx";
+import Reveal from "./components/Reveal.jsx";
 
 export const dynamic = "force-dynamic";
+
+// Scrolling news strip under the header — every line is a cited game fact.
+const TICKER = [
+  "✅ $105,000 closed & backed [a_priority_support, a_training]",
+  "💰 Morning-review book $854,509 [morning-review]",
+  "⚠️ Tender spec locks day 20 (draft_tender_spec §5.3)",
+  "🔴 Rhys Calder — only ally — leaving in January",
+  "📅 Karen's public event — 5 December, written reply still owed",
+  "🚨 Westmere bid window passed — $250k waits a year",
+  "🧾 FB-10412 data-flow docs — open & unassigned since 14/08/2026",
+  "📡 CRM polls get_signals every 70s and writes notes back",
+];
 
 const STANCE_COLOR = {
   ally: "var(--good)",
@@ -361,6 +375,7 @@ export default async function Page() {
 
   return (
     <div className="wrap">
+      <div className="aurora" aria-hidden="true"><i /><i /><i /></div>
       <header className="top">
         <div className="brand">
           <span className="logo">V</span>
@@ -375,20 +390,28 @@ export default async function Page() {
         </div>
       </header>
 
+      <div className="ticker" aria-hidden="true">
+        <div className="ticker-track">
+          {[...TICKER, ...TICKER].map((t, i) => (
+            <span key={i}>{t}</span>
+          ))}
+        </div>
+      </div>
+
       <div className="stats">
         <div className="stat">
           <div className="k">Closed &amp; backed</div>
-          <div className="v g">${wonTotal.toLocaleString()}</div>
+          <div className="v g"><CountUp value={wonTotal} /></div>
           <div className="s">priority support + training [a_priority_support, a_training]</div>
         </div>
         <div className="stat">
           <div className="k">Morning-review book</div>
-          <div className="v g">${morningTotal.toLocaleString()}</div>
+          <div className="v g"><CountUp value={morningTotal} /></div>
           <div className="s">deal by deal [morning-review]</div>
         </div>
         <div className="stat">
           <div className="k">Open offers</div>
-          <div className="v">${openTotal.toLocaleString()}</div>
+          <div className="v"><CountUp value={openTotal} /></div>
           <div className="s">B: $50k + $160k [b_priority_support, b_more_plants]</div>
         </div>
         <div className="stat">
@@ -398,11 +421,15 @@ export default async function Page() {
         </div>
       </div>
 
-      {data.accounts.map((acc) => (
-        <Account key={acc.id} acc={acc} />
+      {data.accounts.map((acc, i) => (
+        <Reveal key={acc.id} delay={i * 90}>
+          <Account acc={acc} />
+        </Reveal>
       ))}
 
-      <Signals initialSignals={data.signals ?? []} />
+      <Reveal>
+        <Signals initialSignals={data.signals ?? []} />
+      </Reveal>
 
       <footer className="cite" style={{ marginTop: 20 }}>
         Built for a manager with ten minutes. No number without a source id; no invented ids, facts or people; unbacked
